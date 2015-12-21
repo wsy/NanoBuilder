@@ -138,9 +138,14 @@ New-NanoServerImage @NanoProps -Verbose
     }
     Dismount-DiskImage -ImagePath "$TargetPath" -verbose
 
+
+#Close and clean
+Get-Childitem $BasePath -File | Where-Object {$_.Extension -match 'vhd'}| Sort -Property Length -Descending | Select -Last 1 | Remove-Item -Force -Verbose
+$form.Close()
+
 })
 
 $Form.ShowDialog() | Out-Null 
-$form.Close()
+
 
 
