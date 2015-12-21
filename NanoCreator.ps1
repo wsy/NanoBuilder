@@ -1,3 +1,5 @@
+Function New-NanoServer{
+
 $inputXml = @"
 <Window 
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -147,5 +149,5 @@ $form.Close()
 
 $Form.ShowDialog() | Out-Null 
 
-
+}
 
