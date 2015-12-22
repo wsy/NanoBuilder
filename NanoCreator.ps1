@@ -1,3 +1,16 @@
+<#
+.Synopsis
+   To simply create a Nano Server VHD file.
+.DESCRIPTION
+   Creates a Nano Server VHD(x) file to be mounted to a VM shell in Hyper-V. This interfaces uses the NanoGenerator module that is included as part of the Windows Server 2016 install media.
+   It is a prerequisite that the media be mounted to the machine you are running the function from. Also, since part of this process is to domain join the Nano server it is required that the machine running this
+   is also part of the domain you intend on having the nano server join.
+
+   see "http://flynnbundy.com/2015/12/21/visual-studio-2015-creating-a-powershell-gui/" for examples on usage
+
+.EXAMPLE
+   New-NanoServer
+#>
 Function New-NanoServer{
 
 $inputXml = @"
