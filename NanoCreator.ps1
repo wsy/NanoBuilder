@@ -6,7 +6,7 @@
    This interfaces uses the NanoGenerator module that is included as part of the Windows Server 2016 install media.
    It is a prerequisite that the media be mounted to the machine you are running the function from. 
    Also, since part of this process is to domain join the Nano server it is required that the machine running this
-   is also part of the domain you intend on having the nano server join.
+   is also part of the domain you intend on having the nano server join along with having the permissions required to add machines to said domain.
 
    see "http://flynnbundy.com/2015/12/21/visual-studio-2015-creating-a-powershell-gui/" for examples on usage
 
