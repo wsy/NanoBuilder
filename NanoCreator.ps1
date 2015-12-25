@@ -7,6 +7,9 @@
    It is a prerequisite that the media be mounted to the machine you are running the function from. 
    Also, since part of this process is to domain join the Nano server it is required that the machine running this
    is also part of the domain you intend on having the nano server join along with having the permissions required to add machines to said domain.
+   
+   note: After you've created your Nano image you will need to add an A record in DNS pointing to your Nano servers name and also set its IPv4 DNS address to
+   point to your DNS server. After that you should be able to access it with a domain account.
 
    see "http://flynnbundy.com/2015/12/21/visual-studio-2015-creating-a-powershell-gui/" for examples on usage
 
