@@ -88,6 +88,8 @@ $xaml.SelectNodes("//*[@Name]") | %{Set-Variable -Name "WPF$($_.Name)" -Value $F
 #Button
 $WPFBuild.Add_Click({
 
+#drives
+$Drives = Get-PSDrive
 
 #Packages
 $Packages = (((Get-Variable -Name *Checkbox*).Value -match "IsChecked:True")).Name
@@ -141,6 +143,7 @@ Import-Module "$MediaPath\NanoServer\NanoServerImageGenerator.psm1" -Verbose
     DomainName = $DomainName
     Ipv4SubnetMask = $SubnetMask
     Ipv4Gateway  = $Gateway
+    InterfaceNameOrIndex = 'Ethernet'
 
    
  } 
@@ -150,14 +153,18 @@ New-NanoServerImage @NanoProps -Verbose
     #Add packages
     Mount-DiskImage -ImagePath "$TargetPath" -Verbose
     
+    #find nano drive
+    $Newlymounted = Get-PSDrive
+    $NanoDrive = (Compare-Object -ReferenceObject $Drives -DifferenceObject $Newlymounted).inputObject.Name
+    
     foreach ($Package in $ToInstall){
-    Add-WindowsPackage –Path ((Get-PSDrive | Where-Object {$_.Name -like '[A-Z]'} | Select -last 1).name + ':') –PackagePath "$BasePath\Packages\$Package.cab"
+    Add-WindowsPackage –Path ($NanoDrive + ':') –PackagePath "$BasePath\Packages\$Package.cab" -Verbose
     }
     Dismount-DiskImage -ImagePath "$TargetPath" -verbose
 
 
-#Close and clean
-Get-Childitem $BasePath -File | Where-Object {$_.Extension -match 'vhd'}| Sort -Property Length -Descending | Select -Last 1 | Remove-Item -Force -Verbose
+#Close
+Write-Verbose "Nano Image has been created at $TargetPath - The GUI will now close"
 $form.Close()
 
 })
