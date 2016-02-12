@@ -16,7 +16,7 @@
 .EXAMPLE
    New-NanoServer
 #>
-Function New-NanoServer{
+Function New-NanoServer {
 
 $inputXml = @"
 <Window 
@@ -166,8 +166,12 @@ New-NanoServerImage @NanoProps -Verbose
     Dismount-DiskImage -ImagePath "$TargetPath" -verbose
 
 
-#Close
-Write-Verbose "Nano Image has been created at $TargetPath - The GUI will now close"
+
+#Close and clean
+$targetpath -match '.\w+.$'
+Get-Childitem $BasePath ((((Get-ChildItem -Path $BasePath -Filter *.Vhd*).Directory).baseName | Select -First 1) + "$($matches[0])") | Remove-Item -Force
+
+
 $form.Close()
 
 })
