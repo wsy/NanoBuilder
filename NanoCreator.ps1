@@ -1,6 +1,6 @@
 <#
 .Synopsis
-   To simply create a Nano Server VHD file.
+   To simply create a Nano Server VHD(x) file.
 .DESCRIPTION
    Creates a Nano Server VHD(x) file to be mounted to a VM shell in Hyper-V. 
    This interfaces uses the NanoGenerator module that is included as part of the Windows Server 2016 install media.
