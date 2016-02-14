@@ -79,14 +79,11 @@ $inputXml = @"
 
 "@
 
-
-
 [void][System.Reflection.Assembly]::LoadWithPartialName('presentationframework')
 [xml]$XAML = $inputXML
 $reader=(New-Object System.Xml.XmlNodeReader $xaml) 
 $Form=[Windows.Markup.XamlReader]::Load( $reader )
 $xaml.SelectNodes("//*[@Name]") | %{Set-Variable -Name "WPF$($_.Name)" -Value $Form.FindName($_.Name)}
-
 
 #Button
 $WPFBuild.Add_Click({
@@ -111,7 +108,6 @@ $ToInstall = Switch ($Packages){
 "CHECKBOXIIS" { "Microsoft-NanoServer-IIS-Package"}
 
 }
-
 #TextBoxes
 $BasePath = $WPFBasePath.text
 $Name = $WPFName.text
@@ -123,15 +119,13 @@ $Gateway = $WPFGateway.text
 $SubnetMask = $WPFSubnet.text
 $passwordBox = $WPFpasswordBox.SecurePassword
 
-
-#required for Nano Module
+#required for Nano Module, Microsoft's idea not mine!
 if ((Get-Culture).Name -ne 'en-US'){
 
 $nc = New-Object Globalization.CultureInfo 'en-US'
 [Threading.Thread]::CurrentThread.CurrentCulture = $nc
 
 }
-
 
 Import-Module "$MediaPath\NanoServer\NanoServerImageGenerator.psm1" -Verbose
 
@@ -147,8 +141,6 @@ Import-Module "$MediaPath\NanoServer\NanoServerImageGenerator.psm1" -Verbose
     Ipv4SubnetMask = $SubnetMask
     Ipv4Gateway  = $Gateway
     InterfaceNameOrIndex = 'Ethernet'
-
-   
  } 
 
 New-NanoServerImage @NanoProps -Verbose
@@ -165,12 +157,9 @@ New-NanoServerImage @NanoProps -Verbose
     }
     Dismount-DiskImage -ImagePath "$TargetPath" -verbose
 
-
-
 #Close and clean
 $targetpath -match '.\w+.$'
 Get-Childitem $BasePath ((((Get-ChildItem -Path $BasePath -Filter *.Vhd*).Directory).baseName | Select -First 1) + "$($matches[0])") | Remove-Item -Force
-
 
 $form.Close()
 
