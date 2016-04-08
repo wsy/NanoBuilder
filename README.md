@@ -1,3 +1,5 @@
+[![forthebadge](http://forthebadge.com/images/badges/gluten-free.svg)](http://forthebadge.com)
+
 # NanoCreator-GUI
 This PowerShell interface makes it easier to create Nano Server images. 
 
