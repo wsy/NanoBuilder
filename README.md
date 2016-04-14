@@ -4,7 +4,7 @@
 This PowerShell interface makes it easier to create Nano Server images. 
 
 This function requires the Windows Server 2016 ISO mounted to your machine prior to execution.
-It is also required that the machine you execute the function from be part of the domain you want the Nano server to join once it comes online. 
+If you are building the Nano server vhdx from a non domain joined machine or you simply dont wish to domain join the Nano server to a domain use the -NoDomain switch parameter and dont specify and domain in the textbox. 
 
 To use, Simply load the script into scope and run the New-NanoServer function. 
 This will produce an easy to use interface which will step you through the steps required to create your Nano server image.
