@@ -18,6 +18,18 @@
 #>
 Function New-NanoServer {
 
+    [CmdletBinding()]
+    Param
+    (
+
+        [Switch]
+        [Parameter(Mandatory=$false,
+                   ValueFromPipelineByPropertyName=$true,
+                   Position=0)]
+        $NoDomain
+
+    )
+
 $inputXml = @"
 <Window 
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -79,93 +91,96 @@ $inputXml = @"
 
 "@
 
-[void][System.Reflection.Assembly]::LoadWithPartialName('presentationframework')
-[xml]$XAML = $inputXML
-$reader=(New-Object System.Xml.XmlNodeReader $xaml) 
-$Form=[Windows.Markup.XamlReader]::Load( $reader )
-$xaml.SelectNodes("//*[@Name]") | %{Set-Variable -Name "WPF$($_.Name)" -Value $Form.FindName($_.Name)}
+    [void][System.Reflection.Assembly]::LoadWithPartialName('presentationframework')
+    [xml]$XAML = $inputXML
+    $reader=(New-Object System.Xml.XmlNodeReader $xaml) 
+    $Form=[Windows.Markup.XamlReader]::Load( $reader )
+    $xaml.SelectNodes("//*[@Name]") | %{Set-Variable -Name "WPF$($_.Name)" -Value $Form.FindName($_.Name)}
 
-#Button
-$WPFBuild.Add_Click({
+    #Button
+    $WPFBuild.Add_Click({
 
-#drives
-$Drives = Get-PSDrive
+    #drives
+    $Drives = Get-PSDrive
 
-#Packages
-$Packages = (((Get-Variable -Name *Checkbox*).Value -match "IsChecked:True")).Name
+    #Packages
+    $Packages = (((Get-Variable -Name *Checkbox*).Value -match "IsChecked:True")).Name
 
-$ToInstall = Switch ($Packages){
+    $ToInstall = Switch ($Packages){
 
-"CHECKBOXSTORAGE" { "Microsoft-NanoServer-Storage-Package" }
-"CHECKBOXCOMPUTE" { "Microsoft-NanoServer-Compute-Package"}
-"CHECKBOXDEFENDER" { "Microsoft-NanoServer-Defender-Package"}
-"CHECKBOXCLUSTERING" { "Microsoft-NanoServer-FailoverCluster-Package"}
-"CHECKBOXOEMDRIVERS" { "Microsoft-NanoServer-OEM-Drivers-Package"}
-"CHECKBOXGUESTDRIVERS" { "Microsoft-NanoServer-Guest-Package"}
-"CHECKBOXREVERSEFORWARDER" { "Microsoft-OneCore-ReverseForwarders-Package"}
-"CHECKBOXCONTAINERS" { "Microsoft-NanoServer-Containers-Package"}
-"CHECKBOXDSC" { "Microsoft-NanoServer-DSC-Package"}
-"CHECKBOXIIS" { "Microsoft-NanoServer-IIS-Package"}
+    "CHECKBOXSTORAGE" { "Microsoft-NanoServer-Storage-Package" }
+    "CHECKBOXCOMPUTE" { "Microsoft-NanoServer-Compute-Package"}
+    "CHECKBOXDEFENDER" { "Microsoft-NanoServer-Defender-Package"}
+    "CHECKBOXCLUSTERING" { "Microsoft-NanoServer-FailoverCluster-Package"}
+    "CHECKBOXOEMDRIVERS" { "Microsoft-NanoServer-OEM-Drivers-Package"}
+    "CHECKBOXGUESTDRIVERS" { "Microsoft-NanoServer-Guest-Package"}
+    "CHECKBOXREVERSEFORWARDER" { "Microsoft-OneCore-ReverseForwarders-Package"}
+    "CHECKBOXCONTAINERS" { "Microsoft-NanoServer-Containers-Package"}
+    "CHECKBOXDSC" { "Microsoft-NanoServer-DSC-Package"}
+    "CHECKBOXIIS" { "Microsoft-NanoServer-IIS-Package"}
 
-}
-#TextBoxes
-$BasePath = $WPFBasePath.text
-$Name = $WPFName.text
-$IPv4 = $WPFIPv4.text
-$MediaPath = $WPFMediaPath.text                                                                              
-$DomainName = $WPFDomainName.text                                                                               
-$TargetPath = $WPFTargetPath.text
-$Gateway = $WPFGateway.text
-$SubnetMask = $WPFSubnet.text
-$passwordBox = $WPFpasswordBox.SecurePassword
-
-#required for Nano Module, Microsoft's idea not mine!
-if ((Get-Culture).Name -ne 'en-US'){
-
-$nc = New-Object Globalization.CultureInfo 'en-US'
-[Threading.Thread]::CurrentThread.CurrentCulture = $nc
-
-}
-
-Import-Module "$MediaPath\NanoServer\NanoServerImageGenerator.psm1" -Verbose
-
-    $NanoProps = @{
-    Mediapath = $MediaPath
-    BasePath = $BasePath
-    TargetPath = $TargetPath
-    ComputerName = $Name
-    AdministratorPassword = $passwordBox
-    Ipv4Address = $IPv4
-    EnableRemoteManagementPort = $true
-    DomainName = $DomainName
-    Ipv4SubnetMask = $SubnetMask
-    Ipv4Gateway  = $Gateway
-    InterfaceNameOrIndex = 'Ethernet'
- } 
-
-New-NanoServerImage @NanoProps -Verbose
-    
-    #Add packages
-    Mount-DiskImage -ImagePath "$TargetPath" -Verbose
-    
-    #find nano drive
-    $Newlymounted = Get-PSDrive
-    $NanoDrive = (Compare-Object -ReferenceObject $Drives -DifferenceObject $Newlymounted).inputObject.Name
-    
-    foreach ($Package in $ToInstall){
-    Add-WindowsPackage –Path ($NanoDrive + ':') –PackagePath "$BasePath\Packages\$Package.cab" -Verbose
     }
-    Dismount-DiskImage -ImagePath "$TargetPath" -verbose
+    #TextBoxes
+    $BasePath = $WPFBasePath.text
+    $Name = $WPFName.text
+    $IPv4 = $WPFIPv4.text
+    $MediaPath = $WPFMediaPath.text                                                                              
+    $WPFDomainName.text                                                                           
+    $TargetPath = $WPFTargetPath.text
+    $Gateway = $WPFGateway.text
+    $SubnetMask = $WPFSubnet.text
+    $passwordBox = $WPFpasswordBox.SecurePassword
 
-#Close and clean
-$targetpath -match '.\w+.$'
-Get-Childitem $BasePath ((((Get-ChildItem -Path $BasePath -Filter *.Vhd*).Directory).baseName | Select -First 1) + "$($matches[0])") | Remove-Item -Force
+    #required for Nano Module, Microsoft's idea not mine!
+    if ((Get-Culture).Name -ne 'en-US'){
 
-$form.Close()
+    $nc = New-Object Globalization.CultureInfo 'en-US'
+    [Threading.Thread]::CurrentThread.CurrentCulture = $nc
 
-})
+    }
 
-$Form.ShowDialog() | Out-Null 
+    Import-Module "$MediaPath\NanoServer\NanoServerImageGenerator.psm1" -Verbose
+
+        $NanoProps = @{
+        Mediapath = $MediaPath
+        BasePath = $BasePath
+        TargetPath = $TargetPath
+        ComputerName = $Name
+        AdministratorPassword = $passwordBox
+        Ipv4Address = $IPv4
+        EnableRemoteManagementPort = $true
+        DomainName = $DomainName
+        Ipv4SubnetMask = $SubnetMask
+        Ipv4Gateway  = $Gateway
+        InterfaceNameOrIndex = 'Ethernet'
+     } 
+    if ($NoDomain -eq $true){
+    $NanoProps.Remove('DomainName')
+    }
+
+    #create
+    New-NanoServerImage @NanoProps -Verbose
+    
+        #Add packages
+        Mount-DiskImage -ImagePath "$TargetPath" -Verbose
+    
+        #find nano drive
+        $Newlymounted = Get-PSDrive
+        $NanoDrive = (Compare-Object -ReferenceObject $Drives -DifferenceObject $Newlymounted).inputObject.Name
+    
+        foreach ($Package in $ToInstall){
+        Add-WindowsPackage –Path ($NanoDrive + ':') –PackagePath "$BasePath\Packages\$Package.cab" -Verbose
+        }
+        Dismount-DiskImage -ImagePath "$TargetPath" -verbose
+
+    #Close and clean
+    $targetpath -match '.\w+.$'
+    Get-Childitem $BasePath ((((Get-ChildItem -Path $BasePath -Filter *.Vhd*).Directory).baseName | Select -First 1) + "$($matches[0])") | Remove-Item -Force
+
+    $form.Close()
+
+    })
+
+    $Form.ShowDialog() | Out-Null 
 
 }
-
