@@ -8,7 +8,7 @@ If you are running this function from a non domain joined machine or you simply 
 
 To use, Simply load the script into scope and run the New-NanoServer function. 
 This will produce an easy to use interface which will step you through the steps required to create your Nano server image.
-Once you've created your Nano Server image you can mount it to a Hyper-V VM (Generation 2!) and boot it up.
+Once you've created your Nano Server image you can mount it to a Hyper-V VM (*Generation 2*) and boot it up.
 
 ![Alt text](https://flynnbundy.files.wordpress.com/2015/12/nano1.png "Example")
 ![Alt text](https://flynnbundy.files.wordpress.com/2015/12/creatingiisserver.png "Example")
