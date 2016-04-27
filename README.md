@@ -2,11 +2,11 @@
 
 ## Updated for Windows Server 2016 TP5
 
-* Staticly set Edition to Datacenter
-* Staticly set DeploymentType to Host
+* Staticly set Edition parameter to Datacenter
+* Staticly set DeploymentType parameter to Host
 
 # NanoCreator-GUI
-This PowerShell interface makes it easier to create Nano Server images. 
+This PowerShell interface makes it easier to create generation 1 OR 2 Nano Server images. For best results always use vhdx (*Generation 2*)
 
 This function requires the Windows Server 2016 ISO mounted to your machine prior to execution.
 If you are running this function from a non domain joined machine or you simply dont wish to domain join the Nano server use the -NoDomain switch parameter and dont specify and domain in the textbox. 
