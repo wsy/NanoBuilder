@@ -1,9 +1,10 @@
 [![forthebadge](http://forthebadge.com/images/badges/gluten-free.svg)](http://forthebadge.com)
 
-## Updated for Windows Server 2016 TP5
+## Updated for Windows Server 2016 TP5 - Version 1.1
 
 * Staticly set Edition parameter to Datacenter
 * Staticly set DeploymentType parameter to Host
+* Removed Reverse Forwarder Package
 
 # NanoCreator-GUI
 This PowerShell interface makes it easier to create generation 1 OR 2 Nano Server images. For best results always use vhdx (*Generation 2*)
