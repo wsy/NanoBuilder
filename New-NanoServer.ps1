@@ -73,7 +73,7 @@ $inputXml = @"
         <CheckBox Name="checkBoxContainer" Content="Containers" HorizontalAlignment="Left" Margin="381,135,0,0" VerticalAlignment="Top"/>
         <CheckBox Name="checkBoxStorage" Content="Storage" HorizontalAlignment="Left" Margin="381,156,0,0" VerticalAlignment="Top"/>
         <CheckBox Name="checkBoxIIS" Content="IIS" HorizontalAlignment="Left" Margin="381,176,0,0" VerticalAlignment="Top"/>
-        <Border BorderThickness="1" HorizontalAlignment="Left" Height="210" Margin="378,48,0,0" VerticalAlignment="Top" Width="130">
+        <Border BorderThickness="1" HorizontalAlignment="Left" Height="157" Margin="378,48,0,0" VerticalAlignment="Top" Width="130">
             <Border.BorderBrush>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black" Offset="0"/>
