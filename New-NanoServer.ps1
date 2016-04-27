@@ -37,7 +37,7 @@ $inputXml = @"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NanoFinal"
-        Title="NanoBuilder 1.0" Height="350" Width="525" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Cursor="Arrow" FontFamily="Tahoma">
+        Title="NanoBuilder 1.1" Height="350" Width="525" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Cursor="Arrow" FontFamily="Tahoma">
     <Grid Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" OpacityMask="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}">
         <Label Name="IntroLabel" Content="Please fill in the required information. Then, press Build." HorizontalAlignment="Left" Margin="14,11,0,0" VerticalAlignment="Top" Width="309"/>
         <TextBox Name="Name" HorizontalAlignment="Left" Height="23" Margin="109,41,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="133"/>
@@ -71,12 +71,9 @@ $inputXml = @"
         <CheckBox Name="checkBoxDSC" Content="DSC" HorizontalAlignment="Left" Margin="381,95,0,0" VerticalAlignment="Top"/>
         <CheckBox Name="checkBoxClustering" Content="Clustering" HorizontalAlignment="Left" Margin="381,115,0,0" VerticalAlignment="Top"/>
         <CheckBox Name="checkBoxContainer" Content="Containers" HorizontalAlignment="Left" Margin="381,135,0,0" VerticalAlignment="Top"/>
-        <CheckBox Name="checkBoxOEMDrivers" Content="OEM Drivers" HorizontalAlignment="Left" Margin="381,155,0,0" VerticalAlignment="Top"/>
-        <CheckBox Name="checkBoxGuestDrivers" Content="Guest Drivers" HorizontalAlignment="Left" Margin="381,174,0,0" VerticalAlignment="Top"/>
-        <CheckBox Name="checkBoxStorage" Content="Storage" HorizontalAlignment="Left" Margin="381,194,0,0" VerticalAlignment="Top"/>
-        <CheckBox Name="checkBoxReverseForwarder" Content="Reverse Forwarder" HorizontalAlignment="Left" Margin="381,214,0,0" VerticalAlignment="Top"/>
-        <CheckBox Name="checkBoxIIS" Content="IIS" HorizontalAlignment="Left" Margin="381,233,0,0" VerticalAlignment="Top"/>
-        <Border BorderThickness="1" HorizontalAlignment="Left" Height="210" Margin="379,50,0,0" VerticalAlignment="Top" Width="130">
+        <CheckBox Name="checkBoxStorage" Content="Storage" HorizontalAlignment="Left" Margin="381,156,0,0" VerticalAlignment="Top"/>
+        <CheckBox Name="checkBoxIIS" Content="IIS" HorizontalAlignment="Left" Margin="381,176,0,0" VerticalAlignment="Top"/>
+        <Border BorderThickness="1" HorizontalAlignment="Left" Height="210" Margin="378,48,0,0" VerticalAlignment="Top" Width="130">
             <Border.BorderBrush>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black" Offset="0"/>
@@ -88,7 +85,6 @@ $inputXml = @"
         <Button Name="Build" Content="Build" HorizontalAlignment="Left" Margin="434,293,0,0" VerticalAlignment="Top" Width="75"/>
     </Grid>
 </Window>
-
 "@
 
     [void][System.Reflection.Assembly]::LoadWithPartialName('presentationframework')
