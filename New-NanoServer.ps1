@@ -139,7 +139,7 @@ $inputXml = @"
 
     }
 
-    Import-Module "$MediaPath\NanoServer\NanoServerImageGenerator.psm1" -Verbose
+    Import-Module "$MediaPath\NanoServer\NanoServerImageGenerator\NanoServerImageGenerator.psm1" -Verbose
 
         $NanoProps = @{
         Mediapath = $MediaPath
@@ -153,6 +153,8 @@ $inputXml = @"
         Ipv4SubnetMask = $SubnetMask
         Ipv4Gateway  = $Gateway
         InterfaceNameOrIndex = 'Ethernet'
+        DeploymentType = 'Host'
+        Edition = 'Datacenter'
      } 
     if ($NoDomain -eq $true){
     $NanoProps.Remove('DomainName')
