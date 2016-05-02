@@ -3,7 +3,7 @@
 ## Updated for Windows Server 2016 TP5 - Version 1.1
 
 * Staticly set Edition parameter to Datacenter
-* Staticly set DeploymentType parameter to Host
+* Staticly set DeploymentType parameter to Guest
 * Removed Reverse Forwarder Package
 
 # NanoCreator-GUI
