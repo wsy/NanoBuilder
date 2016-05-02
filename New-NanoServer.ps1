@@ -149,7 +149,7 @@ $inputXml = @"
         Ipv4SubnetMask = $SubnetMask
         Ipv4Gateway  = $Gateway
         InterfaceNameOrIndex = 'Ethernet'
-        DeploymentType = 'Host'
+        DeploymentType = 'Guest'
         Edition = 'Datacenter'
      } 
     if ($NoDomain -eq $true){
