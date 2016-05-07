@@ -92,7 +92,7 @@ $inputXml = @"
     "CHECKBOXCOMPUTE" { "Microsoft-NanoServer-Compute-Package"}
     "CHECKBOXDEFENDER" { "Microsoft-NanoServer-Defender-Package"}
     "CHECKBOXCLUSTERING" { "Microsoft-NanoServer-FailoverCluster-Package"}
-    "CHECKBOXCONTAINERS" { "Microsoft-NanoServer-Containers-Package"}
+    "CHECKBOXCONTAINER" { "Microsoft-NanoServer-Containers-Package"}
     "CHECKBOXDSC" { "Microsoft-NanoServer-DSC-Package"}
     "CHECKBOXIIS" { "Microsoft-NanoServer-IIS-Package"}
 
