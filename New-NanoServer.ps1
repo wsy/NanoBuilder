@@ -14,18 +14,6 @@
 #>
 Function New-NanoServer {
 
-    [CmdletBinding()]
-    Param
-    (
-
-        [Switch]
-        [Parameter(Mandatory=$false,
-                   ValueFromPipelineByPropertyName=$true,
-                   Position=0)]
-        $NoDomain
-
-    )
-
 $inputXml = @"
 <Window 
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -104,9 +92,6 @@ $inputXml = @"
     "CHECKBOXCOMPUTE" { "Microsoft-NanoServer-Compute-Package"}
     "CHECKBOXDEFENDER" { "Microsoft-NanoServer-Defender-Package"}
     "CHECKBOXCLUSTERING" { "Microsoft-NanoServer-FailoverCluster-Package"}
-    "CHECKBOXOEMDRIVERS" { "Microsoft-NanoServer-OEM-Drivers-Package"}
-    "CHECKBOXGUESTDRIVERS" { "Microsoft-NanoServer-Guest-Package"}
-    "CHECKBOXREVERSEFORWARDER" { "Microsoft-OneCore-ReverseForwarders-Package"}
     "CHECKBOXCONTAINERS" { "Microsoft-NanoServer-Containers-Package"}
     "CHECKBOXDSC" { "Microsoft-NanoServer-DSC-Package"}
     "CHECKBOXIIS" { "Microsoft-NanoServer-IIS-Package"}
