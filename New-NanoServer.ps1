@@ -5,16 +5,12 @@
    Creates a Nano Server VHD(x) file to be mounted to a VM shell in Hyper-V. 
    This interfaces uses the NanoGenerator module that is included as part of the Windows Server 2016 install media.
    It is a prerequisite that the media be mounted to the machine you are running the function from. 
-   Also, since part of this process is to domain join the Nano server it is required that the machine running this
-   is also part of the domain you intend on having the nano server join along with having the permissions required to add machines to said domain.
-   
-   note: After you've created your Nano image you will need to add an A record in DNS pointing to your Nano servers name and also set its IPv4 DNS address to
-   point to your DNS server. After that you should be able to access it with a domain account.
-
+    
    see "http://flynnbundy.com/2015/12/21/visual-studio-2015-creating-a-powershell-gui/" for examples on usage
 
 .EXAMPLE
    New-NanoServer
+
 #>
 Function New-NanoServer {
 
@@ -152,7 +148,7 @@ $inputXml = @"
         DeploymentType = 'Guest'
         Edition = 'Datacenter'
      } 
-    if ($NoDomain -eq $true){
+    if ($Null -eq $NanoProps.DomainName){
     $NanoProps.Remove('DomainName')
     }
 
@@ -170,10 +166,6 @@ $inputXml = @"
         Add-WindowsPackage –Path ($NanoDrive + ':') –PackagePath "$BasePath\Packages\$Package.cab" -Verbose
         }
         Dismount-DiskImage -ImagePath "$TargetPath" -verbose
-
-    #Close and clean
-    $targetpath -match '.\w+.$'
-    Get-Childitem $BasePath ((((Get-ChildItem -Path $BasePath -Filter *.Vhd*).Directory).baseName | Select -First 1) + "$($matches[0])") | Remove-Item -Force
 
     $form.Close()
 
