@@ -1,4 +1,4 @@
-[![forthebadge](http://forthebadge.com/images/badges/gluten-free.svg)](http://forthebadge.com)
+## Example of PowerShell GUI ##
 
 ## Updated for Windows Server 2016 TP5 - Version 1.1
 
